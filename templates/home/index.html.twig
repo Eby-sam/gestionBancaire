@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HomeController!{% endblock %}
+
+{% block body %}
+    <h1>Bienvenue sur la page d'accueil !</h1>
+    <p>Consultez la liste de nos clients :</p>
+    <a href="{{ path('clientsList') }}">Voir la liste des clients</a>
+{% endblock %}

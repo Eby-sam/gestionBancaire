@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ClientController!{% endblock %}
+
+{% block body %}
+    <div>
+        <h1>Liste des clients</h1>
+        <ul>
+            {% for client in clients %}
+                <li>
+                    {{ client.nom }} {{ client.prenom }}
+                    <form method="post" action="{{ path('client_delete', {'id': client.id}) }}" style="display: inline;">
+                        <button type="submit" class="btn btn-danger" onclick="return confirm('Voulez-vous vraiment supprimer ce client ?')">Supprimer</button>
+                    </form>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}
