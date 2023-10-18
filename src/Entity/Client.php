@@ -6,6 +6,7 @@ use App\Repository\ClientRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: ClientRepository::class)]
 class Client
@@ -16,22 +17,24 @@ class Client
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['compte','client'])]
     private ?string $nom = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['compte','client'])]
     private ?string $prenom = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(['compte','client'])]
     private ?string $adresse = null;
 
     #[ORM\Column(length: 20, nullable: true)]
+    #[Groups(['compte','client'])]
     private ?string $numTel = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['compte','client'])]
     private ?string $mail = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $password = null;
 
     #[ORM\OneToMany(mappedBy: 'titulaire', targetEntity: Compte::class)]
     private Collection $clientCompte;
@@ -106,17 +109,6 @@ class Client
         return $this;
     }
 
-    public function getPassword(): ?string
-    {
-        return $this->password;
-    }
-
-    public function setPassword(string $password): static
-    {
-        $this->password = $password;
-
-        return $this;
-    }
 
     /**
      * @return Collection<int, Compte>
@@ -139,7 +131,6 @@ class Client
     public function removeClientCompte(Compte $clientCompte): static
     {
         if ($this->clientCompte->removeElement($clientCompte)) {
-            // set the owning side to null (unless already changed)
             if ($clientCompte->getTitulaire() === $this) {
                 $clientCompte->setTitulaire(null);
             }

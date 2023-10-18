@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\CompteRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: CompteRepository::class)]
 class Compte
@@ -15,12 +16,15 @@ class Compte
     private ?int $id = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(['compte','client'])]
     private ?string $numeroCompte = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['compte','client'])]
     private ?string $typeCompte = null;
 
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2)]
+    #[Groups(['compte','client'])]
     private ?string $solde = null;
 
     #[ORM\ManyToOne(inversedBy: 'clientCompte')]

@@ -21,6 +21,17 @@ class CompteRepository extends ServiceEntityRepository
         parent::__construct($registry, Compte::class);
     }
 
+
+    public function findByClientName($nom)
+    {
+        return $this->createQueryBuilder('c')
+            ->join('c.titulaire', 'cl')
+            ->where('cl.nom = :nom')
+            ->setParameter('nom', $nom)
+            ->getQuery()
+            ->getResult();
+    }
+
 //    /**
 //     * @return Compte[] Returns an array of Compte objects
 //     */
